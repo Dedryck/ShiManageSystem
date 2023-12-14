@@ -1,0 +1,297 @@
+-- 序号和船名的插入触发器（修
+DELIMITER $$
+
+CREATE TRIGGER insert_No_BoatName
+AFTER INSERT ON 船只基本资料表 FOR EACH ROW
+BEGIN
+    INSERT INTO 中间检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 危险品证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 各证书有效期 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 国籍证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 坞内检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 年度检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 检修证明 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 油污证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 港澳航线船舶营运证 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 港澳证明处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 特别检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 航行港澳船舶证明书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 航道费纪录表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶共有情况 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶国籍证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶所有权登记证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶最低安全配员证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶电台执照 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶相片 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶载重线证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶运载危险品证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 船舶防止油污证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 营运证处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 螺旋桨尾轴检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 货船适航证书 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 载重线证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 适航证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 配员证书处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+    INSERT INTO 锅炉检验处理历史表 (序号, 船名) VALUES (NEW.序号, NEW.船名);
+END$$
+
+DELIMITER ;
+
+
+
+
+-- 插入--`船舶种类`属性（修
+DELIMITER $$
+
+CREATE TRIGGER update_ship_type
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    UPDATE 船舶最低安全配员证书
+    SET 船舶种类 = NEW.船舶类型
+    WHERE 船名 = NEW.船名;
+END$$
+
+DELIMITER ;
+
+
+
+-- `船体材料`(修
+DELIMITER //
+
+CREATE TRIGGER update_ship_material AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    UPDATE 船舶所有权登记证书
+    SET 船体材料 = NEW.船体材料
+    WHERE 船名 = NEW.船名;
+END;
+
+//
+DELIMITER ;
+
+
+-- 船籍港(修
+DELIMITER //
+
+CREATE TRIGGER update_port_of_registry AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    UPDATE 船舶所有权登记证书
+    SET 船籍港 = NEW.船籍港
+    WHERE 船名 = NEW.船名;
+
+    UPDATE 船舶最低安全配员证书
+    SET 船籍港 = NEW.船籍港
+    WHERE 船名 = NEW.船名;
+
+    UPDATE 航行港澳船舶证明书
+    SET 船籍港 = NEW.船籍港
+    WHERE 船名 = NEW.船名;
+END;
+
+//
+DELIMITER ;
+
+
+-- `建成日期`(修
+DELIMITER $$
+
+CREATE TRIGGER update_ship_construction_date AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    -- 检查插入的建成时间是否不是未来的日期
+    IF NEW.建成时间 <= CURRENT_DATE() THEN
+        -- 更新船舶所有权登记证书表的建成日期
+        UPDATE 船舶所有权登记证书
+        SET 建成日期 = NEW.建成时间
+        WHERE 船名 = NEW.船名;
+
+        -- 更新船舶防止油污证书表的建造日期
+        UPDATE 船舶防止油污证书
+        SET 建造日期 = NEW.建成时间
+        WHERE 船名 = NEW.船名;
+		ELSE
+        -- 如果总长不合理，抛出错误
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '建成时间不可以是未来日期';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+-- 总长(修
+DELIMITER //
+
+CREATE TRIGGER update_ship_length_after_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    -- 数据合理性判断，确保总长是在0和1000之间的值
+    IF NEW.总长 >= 0 AND NEW.总长 < 1000 THEN
+        -- 更新船舶所有权登记证书表中的总长
+        UPDATE 船舶所有权登记证书
+        SET 总长 = NEW.总长
+        WHERE 船名 = NEW.船名;
+    ELSE
+        -- 如果总长不合理，抛出错误
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '不合理的总长值，必须在0到1000之间';
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+
+-- 型宽（修
+DELIMITER //
+
+CREATE TRIGGER update_ship_width_after_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    -- 检查型宽是否在合理范围内
+    IF NEW.型宽 >= 0 AND NEW.型宽 < 1000 THEN
+        -- 更新关联表中的型宽
+        UPDATE 船舶所有权登记证书
+        SET 型宽 = NEW.型宽
+        WHERE 船名 = NEW.船名;
+    ELSE
+        -- 如果数据不合理，可以选择抛出错误或者采取其他措施
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = '型宽值不合理，必须大于等于0且小于1000';
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+
+
+-- 型深（修
+DELIMITER $$
+
+CREATE TRIGGER after_ship_basic_info_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    -- 检查插入的型深是否合理
+    IF NEW.型深 > 0 AND NEW.型深 < 500 THEN
+        -- 更新船舶所有权登记证书表
+        UPDATE 船舶所有权登记证书
+        SET 型深 = NEW.型深
+        WHERE 船名 = NEW.船名;
+
+        -- 更新船舶载重线证书表
+        UPDATE 船舶载重线证书
+        SET 计算型深 = NEW.型深
+        WHERE 船名 = NEW.船名;
+		ELSE
+				-- 若主机功率不大于0，则不执行更新并给出错误提示
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '型深必须大于0且小于500';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+-- 总吨（修
+DELIMITER $$
+
+CREATE TRIGGER after_ship_basic_Tons_info_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    IF NEW.总吨 > 0 THEN
+        UPDATE 船舶所有权登记证书
+        SET 总吨 = NEW.总吨
+        WHERE 船名 = NEW.船名;
+		ELSE
+				-- 若主机功率不大于0，则不执行更新并给出错误提示
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '总吨必须大于0';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+-- 净吨（修
+DELIMITER $$
+
+CREATE TRIGGER update_net_tonnage_after_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    -- 数据合理性判断：净吨应该大于0
+    IF NEW.净吨 > 0 THEN
+        -- 更新船舶所有权登记证书表中的净吨字段
+        UPDATE 船舶所有权登记证书
+        SET 净吨 = NEW.净吨
+        WHERE 船名 = NEW.船名;
+		ELSE
+				-- 若主机功率不大于0，则不执行更新并给出错误提示
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '净吨必须大于0';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+-- `主机功率`（修
+DELIMITER $$
+
+-- 创建 AFTER INSERT 触发器
+CREATE TRIGGER after_ship_POWER_insert
+AFTER INSERT ON 船只基本资料表 FOR EACH ROW
+BEGIN
+    -- 在更新前先判断主机功率是否大于0
+    IF NEW.主机功率 > 0 THEN
+        -- 更新 船舶所有权登记证书 表中的 功率 字段
+        UPDATE 船舶所有权登记证书
+        SET 功率 = NEW.主机功率
+        WHERE 船名 = NEW.船名;
+    ELSE
+        -- 若主机功率不大于0，则不执行更新并给出错误提示
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = '主机功率必须大于0';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+-- 载重吨（修
+DELIMITER //
+
+CREATE TRIGGER after_ship_deadweighttonnage_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    IF NEW.载重吨 > 0 THEN
+        UPDATE 航行港澳船舶证明书
+        SET 载重吨位 = NEW.载重吨
+        WHERE 船名 = NEW.船名;
+    END IF;
+END;
+
+//
+DELIMITER ;
+
+
+
+
+-- `航区航线`（修
+DELIMITER $$
+
+CREATE TRIGGER update_sailing_area_after_insert
+AFTER INSERT ON 船只基本资料表
+FOR EACH ROW
+BEGIN
+    UPDATE 货船适航证书
+    SET 航区航线 = NEW.航行区域
+    WHERE 货船适航证书.船名 = NEW.船名;
+END$$
+
+DELIMITER ;

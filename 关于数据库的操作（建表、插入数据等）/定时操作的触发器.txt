@@ -1,0 +1,3 @@
+ -- 定时删除字段
+ALTER TABLE 系统用户表
+ADD COLUMN 删除时间 DATETIME;

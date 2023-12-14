@@ -1,0 +1,491 @@
+CREATE TABLE `中间检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `危险品证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `各证书有效期` (
+		`序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书名` VARCHAR(18) NOT NULL,
+    `证书有效期至` DATETIME NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `国籍证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `坞内检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `年度检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `检修证明` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `检修类型` VARCHAR(30) NOT NULL,
+    `签发时间` DATETIME NOT NULL,
+    `检修证明编号` VARCHAR(20) NOT NULL,
+    `下次检修时间` DATETIME NOT NULL,
+    `筏站名称` VARCHAR(50),
+    `是否有效` VARCHAR(4) NOT NULL,
+    `检修情况说明` VARCHAR(300)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `油污证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `港澳航线船舶营运证` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `载客定额` INT NULL,
+    `载货定额` DECIMAL(18, 2) NULL,
+    `经济性质` VARCHAR(30) NOT NULL,
+    `船舶经营人` VARCHAR(30) NOT NULL,
+    `批准机关` VARCHAR(30) NOT NULL,
+    `批准文号` VARCHAR(20) NOT NULL,
+    `客运航线` VARCHAR(50),
+    `货运航线` VARCHAR(150),
+    `发证日期` DATETIME NOT NULL,
+    `有效日期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `港澳证明处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `特别检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `系统参数表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `参数名` VARCHAR(20) NOT NULL,
+    `取值` INT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `系统用户表` (
+    `用户ID` VARCHAR(20) NOT NULL,
+    `密码` VARCHAR(100) NOT NULL,
+    `权限` VARCHAR(50) NOT NULL,
+    `员工姓名` VARCHAR(20),
+    `联系电话` VARCHAR(50),
+		`工作岗位` VARCHAR(20),
+		`工作职能` VARCHAR(20),
+		`软删除标记字段` TINYINT,
+		`删除时间` DATETIME
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `航行港澳船舶证明书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `船员定额` INT NOT NULL,
+    `船舶种类` VARCHAR(20) NOT NULL,
+    `载重吨位` DECIMAL(18, 2) NOT NULL,
+    `船籍港` VARCHAR(20) NOT NULL,
+    `所属单位` VARCHAR(30) NOT NULL,
+    `航行有效期` DATETIME NOT NULL,
+    `批复文号` VARCHAR(25) NOT NULL,
+    `签发机关` VARCHAR(30) NOT NULL,
+    `发证日期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `航道费纪录表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `航道费用` DECIMAL(19, 4) NOT NULL,
+    `交付日期` DATETIME NOT NULL,
+    `费用有效期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶共有情况` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `股东名` VARCHAR(30) NOT NULL,
+    `股份` DECIMAL(18, 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶国籍证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `曾用名` VARCHAR(20),
+    `证书编号` VARCHAR(20) NOT NULL,
+    `证书有效期` DATETIME NOT NULL,
+    `取得所有权日期` DATETIME NOT NULL,
+    `签发日期` DATETIME NOT NULL,
+    `发证机关及其编号` VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶所有权登记证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `登记号码` VARCHAR(20) NOT NULL,
+    `初次登记号` VARCHAR(20) NOT NULL,
+    `曾用名` VARCHAR(20),
+    `船籍港` VARCHAR(20),
+    `原船籍港` VARCHAR(20),
+    `船舶呼号` VARCHAR(20),
+    `IMO编号` VARCHAR(20),
+    `船舶种类` VARCHAR(20) NOT NULL,
+    `船体材料` VARCHAR(20) NOT NULL,
+    `造船地点` VARCHAR(50),
+    `建成日期` DATETIME NOT NULL,
+    `船舶价值` DECIMAL(19, 4),
+    `总长` DECIMAL(18, 2) NOT NULL,
+    `型宽` DECIMAL(18, 2) NOT NULL,
+    `型深` DECIMAL(18, 2) NOT NULL,
+    `总吨` DECIMAL(18, 2) NOT NULL,
+    `净吨` DECIMAL(18, 2) NOT NULL,
+    `主机种类` VARCHAR(20) NOT NULL,
+    `主机数目` INT NOT NULL,
+    `功率` DECIMAL(18, 2) NOT NULL,
+    `推进器种类` VARCHAR(20) NOT NULL,
+    `推进器数目` INT NOT NULL,
+    `船舶所有人` VARCHAR(30) NOT NULL,
+    `船舶所有人地址` VARCHAR(100),
+    `法定代表人姓名` VARCHAR(20) NOT NULL,
+    `取得所有权日期` DATETIME,
+    `发证机关` VARCHAR(30),
+    `编号` VARCHAR(20),
+    `发证日期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶最低安全配员证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `船舶种类` VARCHAR(20) NOT NULL,
+    `船籍港` VARCHAR(30) NOT NULL,
+    `签发日期` DATETIME NOT NULL,
+    `发证机关` VARCHAR(30) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶电台执照` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `呼号` VARCHAR(30) NOT NULL,
+    `隶属单位` VARCHAR(30) NOT NULL,
+    `公众通信类别` VARCHAR(20) NOT NULL,
+    `签发日期` DATETIME NOT NULL,
+    `有效期至` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶相片` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `船舶相片` LONGBLOB,
+    `相片类型` CHAR(10)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶载重线证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `船检登记号` VARCHAR(20) NOT NULL,
+    `编号` VARCHAR(20) NOT NULL,
+    `船长` DECIMAL(18, 2),
+    `计算型深` DECIMAL(18, 2),
+    `发证日期` DATETIME NOT NULL,
+    `有效日期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶运载危险品证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `船检登记号` VARCHAR(20) NOT NULL,
+    `编号` VARCHAR(20) NOT NULL,
+    `发证日期` DATETIME NOT NULL,
+    `证书有效期` DATETIME NOT NULL,
+    `发证机关` VARCHAR(20),
+    `危险品种类` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `船舶防止油污证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `船检登记号` VARCHAR(20) NOT NULL,
+    `编号` VARCHAR(20) NOT NULL,
+    `船舶种类` VARCHAR(20) NOT NULL,
+    `建造日期` DATETIME NOT NULL,
+    `证书有效期` DATETIME NOT NULL,
+    `发证日期` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `营运证处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(20) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `螺旋桨尾轴检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `货船适航证书` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `船检登记号` VARCHAR(20) NOT NULL,
+    `编号` VARCHAR(20) NOT NULL,
+    `证书有效期` DATETIME NOT NULL,
+    `年度检验日期` DATETIME,
+    `中间检验日期` DATETIME,
+    `特别检验日期` DATETIME,
+    `坞内检验日期` DATETIME,
+    `螺旋桨尾轴检验日期` DATETIME,
+    `锅炉检验日期` DATETIME,
+    `航区航线` VARCHAR(200) NOT NULL,
+    `发证日期` DATETIME NOT NULL,
+    `发证单位` VARCHAR(30) NOT NULL,
+    `主任验船师` VARCHAR(10)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `载重线证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `适航证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `配员证书处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `锅炉检验处理历史表` (
+    `序号` INT AUTO_INCREMENT PRIMARY KEY,
+    `船名` VARCHAR(20) NOT NULL,
+    `证书编号` VARCHAR(20) NOT NULL,
+    `办理日期` DATETIME NOT NULL,
+    `办理人` VARCHAR(10) NOT NULL,
+    `证书有效期至` DATETIME NOT NULL,
+    `业务办理情况` VARCHAR(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `用户操作记录表` (
+    `操作记录ID` INT AUTO_INCREMENT PRIMARY KEY,
+    `用户ID` VARCHAR(20) NOT NULL,
+    `操作类型` VARCHAR(20) NOT NULL,
+    `操作时间` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `操作细节` TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+CREATE TABLE 船只基本资料表 (
+    序号 INT AUTO_INCREMENT PRIMARY KEY,
+    船主姓名 VARCHAR(30),
+    身份证号 VARCHAR(20),
+    联系电话 VARCHAR(18),
+    详细住址 VARCHAR(100),
+    船名 VARCHAR(30) PRIMARY KEY,
+    船舶类型 VARCHAR(30),
+    船体材料 VARCHAR(30),
+    机型 VARCHAR(30),
+    船籍港 VARCHAR(30),
+    建造厂 VARCHAR(50),
+    船舶登记号 VARCHAR(30),
+    营运证号 VARCHAR(30),
+    入户时间 DATE,
+    迁出时间 DATE,
+    建成时间 DATE,
+    总长 DECIMAL(10, 2),
+    型宽 DECIMAL(10, 2),
+    型深 DECIMAL(10, 2),
+    总吨 DECIMAL(10, 2),
+    净吨 DECIMAL(10, 2),
+    主机功率 DECIMAL(10, 2),
+    载重吨 DECIMAL(10, 2),
+    航行区域 VARCHAR(100),
+    备注 TEXT,
+    船舶相片 LONGBLOB,
+		船检登记号 VARCHAR(30),
+		-- 创建时间 TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+-- 新建一个“船只营运证书基本表”
+CREATE TABLE `船只营运证书基本表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `营运证编号` VARCHAR(50) PRIMARY KEY,
+    `船舶所有人` VARCHAR(30),
+    `船舶登记号` VARCHAR(50),
+    `经营人许可证号码` VARCHAR(50),
+    `管理人许可证号码` VARCHAR(50),
+    `发证机关` VARCHAR(30),
+    `营运证使用有效期至` DATE,
+    `发证日期` DATE,
+    FOREIGN KEY (`船名`, `船检登记号`) REFERENCES `船只基本资料表`(`船名`, `船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- 船只检验表证书基本表的建立
+CREATE TABLE `船只检验证书基本表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `检验证编号` VARCHAR(50) PRIMARY KEY,
+    `船舶所有人` VARCHAR(30),
+    `船舶登记号` VARCHAR(50),
+    `船舶检验类型` VARCHAR(50),
+    `下次检验时间` DATE,
+    `通知时间` DATE,
+    `检验机关` VARCHAR(50),
+    `检验证使用有效期至` DATE,
+    `发证日期` DATE,
+    `船只检验情况记录` TEXT,
+    FOREIGN KEY (`船名`) REFERENCES `船只基本资料表`(`船名`),
+    FOREIGN KEY (`船检登记号`) REFERENCES `船只基本资料表`(`船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- 船只安检证书基本表的建立
+CREATE TABLE `船只安检证书基本表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `安检证书编号` VARCHAR(50) PRIMARY KEY,
+    `船舶所有人` VARCHAR(30),
+    `船舶登记号` VARCHAR(50),
+    `检查机关` VARCHAR(50),
+    `下次检查时间` DATE,
+    `通知时间` DATE,
+    `安检证书使用有效期至` DATE,
+    `发证日期` DATE,
+    `船只检验情况记录` TEXT,
+    FOREIGN KEY (`船名`) REFERENCES `船只基本资料表`(`船名`),
+    FOREIGN KEY (`船检登记号`) REFERENCES `船只基本资料表`(`船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+-- 国籍配员证书基本信息表的建立
+CREATE TABLE `国籍配员证书基本信息表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `国籍配员证书编号` VARCHAR(50) PRIMARY KEY,
+    `船舶所有人` VARCHAR(30),
+    `船舶登记号` VARCHAR(50),
+    `下次换证时间` DATE,
+    `换证通知时间` DATE,
+    `国籍配员证书使用有效期至` DATE,
+    `发证日期` DATE,
+    `国籍配员证书换证时间记录` TEXT,
+    FOREIGN KEY (`船名`) REFERENCES `船只基本资料表`(`船名`),
+    FOREIGN KEY (`船检登记号`) REFERENCES `船只基本资料表`(`船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- 航道费缴纳情况表的建立--6个参数
+CREATE TABLE `航道费缴纳情况表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `航道费` DECIMAL(10, 2),
+    `填表日期` DATE,
+    `航道费合计` DECIMAL(10, 2),
+    `航道费缴纳记录` TEXT,
+    PRIMARY KEY (`船名`, `船检登记号`),
+    FOREIGN KEY (`船名`) REFERENCES `船只基本资料表`(`船名`),
+    FOREIGN KEY (`船检登记号`) REFERENCES `船只基本资料表`(`船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- 船只按月缴纳水运费基本信息表----6个参数
+CREATE TABLE `船只按月缴纳水运费基本信息表` (
+    `船名` VARCHAR(30),
+    `船检登记号` VARCHAR(30),
+    `航道费` DECIMAL(10, 2),
+    `填表日期` DATE,
+    `水运费合计` DECIMAL(10, 2),
+    `水运费缴纳记录` TEXT,
+    PRIMARY KEY (`船名`, `船检登记号`),
+    FOREIGN KEY (`船名`) REFERENCES `船只基本资料表`(`船名`),
+    FOREIGN KEY (`船检登记号`) REFERENCES `船只基本资料表`(`船检登记号`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+

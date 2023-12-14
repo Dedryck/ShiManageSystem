@@ -1,0 +1,39 @@
+-- 新建删除操作
+DELIMITER $$
+
+CREATE TRIGGER before_delete_SerialNumber
+AFTER DELETE ON 船只基本资料表 
+FOR EACH ROW
+BEGIN
+    DELETE FROM 中间检验处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 危险品证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 各证书有效期 WHERE 序号 = OLD.序号;
+    DELETE FROM 国籍证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 坞内检验处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 年度检验处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 检修证明 WHERE 序号 = OLD.序号;
+    DELETE FROM 油污证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 港澳航线船舶营运证 WHERE 序号 = OLD.序号;
+    DELETE FROM 港澳证明处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 特别检验处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 航行港澳船舶证明书 WHERE 序号 = OLD.序号;
+    DELETE FROM 航道费纪录表 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶共有情况 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶国籍证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶所有权登记证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶最低安全配员证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶电台执照 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶相片 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶载重线证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶运载危险品证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 船舶防止油污证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 营运证处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 螺旋桨尾轴检验处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 货船适航证书 WHERE 序号 = OLD.序号;
+    DELETE FROM 载重线证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 适航证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 配员证书处理历史表 WHERE 序号 = OLD.序号;
+    DELETE FROM 锅炉检验处理历史表 WHERE 序号 = OLD.序号;
+END$$
+
+DELIMITER ;

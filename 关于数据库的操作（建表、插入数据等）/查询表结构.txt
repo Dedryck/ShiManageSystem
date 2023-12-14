@@ -1,0 +1,37 @@
+SHOW INDEXES FROM `船只基本资料表`;
+
+
+
+-- 对于操作新建一个“船只营运证书基本表”建立必要的索引
+ALTER TABLE `船只基本资料表`
+ADD UNIQUE (`船名`, `船检登记号`);
+
+-- 搜索记录
+SELECT * FROM 船只营运证书基本表 WHERE DATEDIFF(营运证使用有效期至, CURDATE()) <= 30
+
+-- 查询外键约束结构
+SELECT 
+    kcu.TABLE_NAME, 
+    kcu.COLUMN_NAME, 
+    kcu.CONSTRAINT_NAME, 
+    kcu.REFERENCED_TABLE_NAME, 
+    kcu.REFERENCED_COLUMN_NAME, 
+    rc.UPDATE_RULE, 
+    rc.DELETE_RULE 
+FROM 
+    INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu 
+JOIN 
+    INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc 
+ON 
+    kcu.CONSTRAINT_SCHEMA = rc.CONSTRAINT_SCHEMA 
+    AND kcu.CONSTRAINT_NAME = rc.CONSTRAINT_NAME
+WHERE 
+    kcu.REFERENCED_TABLE_SCHEMA = '船只资料数据库' 
+    AND kcu.REFERENCED_TABLE_NAME = '船只营运证书基本表';
+
+
+-- 再建立索引。对应创建表“船只检验证书基本表”
+ALTER TABLE `船只基本资料表`
+ADD INDEX `index_船名` (`船名`),
+ADD INDEX `index_船检登记号` (`船检登记号`);
+
